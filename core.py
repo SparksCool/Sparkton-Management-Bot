@@ -1,38 +1,43 @@
 import discord
 import sys
 import json
+from discord.ext import commands
 
-TOKEN = 'no'
-client = discord.Client()
+with open('config.json') as j:
+    configfile = json.load(j);
+ 
+TOKEN = configfile['config']['token']
+print('token is ' + TOKEN)
 
-@client.event
+bot = commands.Bot(command_prefix=configfile['config']['prefix'], description='Management Bot',  case_insensitive=True)
+
+
+if __name__ == '__main__':
+    for cog in configfile['config']['cogs']:
+        print(cog)
+        try:
+            bot.load_extension(cog['cog'])
+        except Exception as error:
+            print(f"failed to load {cog['cog']}.")
+
+
+@bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    """http://discordpy.readthedocs.io/en/rewrite/api.html#discord.on_ready"""
 
-@client.event
-async def on_message(message):
-    
-    if message.author == client.user:
-        return
-    user = message.author
-    
-    if message.content.startswith('$'):
-        content = message.content[1:].split(" ", 1)
-        if len(content) > 1:
-            cmd, args = content[0], content[1]
-        else:
-            cmd, args = content[0], ""
-    else:
-        return
+    print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n')
 
-    ##Commands
-    cmd == cmd.lower()
-
-    if cmd == 'help':
-        await message.channel.send( 'there are no commands as of now rip.')
+    print(f'Successfully logged in and booted...!')
 
 
-client.run(TOKEN)
+bot.run(TOKEN, bot=True, reconnect=True)
+
+
+
+
+
+
+
 
 
 
