@@ -4,7 +4,7 @@ import json
 from discord.ext import commands
 
 with open('config.json') as j:
-    configfile = json.load(j);
+    configfile = json.load(j)
  
 TOKEN = configfile['config']['token']
 print('token is ' + TOKEN)
@@ -17,6 +17,7 @@ if __name__ == '__main__':
         print(cog)
         try:
             bot.load_extension(cog['cog'])
+            print(f"loaded cog: {cog['cog']}.")
         except Exception as error:
             print(f"failed to load {cog['cog']}.")
 
