@@ -9,7 +9,6 @@ from discord.ext import commands
 with open('config.json') as j:
    cf = json.load(j)
 
-gh = Github(cf['config']['githubToken'])
 
 class Github_Commands(commands.Cog):
 
@@ -18,12 +17,8 @@ class Github_Commands(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(administrator=True)
-    async def setNotif(self, ctx, args=None):
-        cf['config']['notifChat'] = f"{ctx.message.channel}"
-        os.remove('config.json')
-        with open('config.json', 'w') as j:
-            json.dump(cf, j, indent=4)
-        await ctx.send('channel set!')
+    async def LastCommit(self, ctx, args=None):
+        await ctx.send('this command is WIP')
 
 def setup(bot):
     bot.add_cog(Github_Commands(bot))
