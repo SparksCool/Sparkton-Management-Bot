@@ -5,8 +5,11 @@ from discord.ext import commands
 
 with open('config.json') as j:
     configfile = json.load(j)
+
+with open('token.json') as f:
+    tokenfile = json.load(f)
  
-TOKEN = configfile['config']['token']
+TOKEN = tokenfile['token']
 print('token is ' + TOKEN)
 
 bot = commands.Bot(command_prefix=configfile['config']['prefix'], description='Management Bot',  case_insensitive=True)
@@ -19,7 +22,7 @@ if __name__ == '__main__':
             bot.load_extension(cog['cog'])
             print(f"loaded cog: {cog['cog']}.")
         except Exception as error:
-            print(f"failed to load {cog['cog']}.")
+            print(f"failed to load {cog['cog']}, Error: {Exception}.")
 
 
 @bot.event

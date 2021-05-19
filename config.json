@@ -1,0 +1,14 @@
+{
+    "config": {
+        "prefix": "$",
+        "suggestChat": "empty for now",
+        "cogs": [
+            {
+                "cog": "modules.githubMan"
+            },
+            {
+                "cog": "modules.main"
+            }
+        ]
+    }
+}
